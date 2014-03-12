@@ -11,3 +11,5 @@ http://maven.apache.org/download.cgi
 
 Use whatever IDE you like.  The Community Edition of IntelliJ is available for free:
 http://www.jetbrains.com/idea/download/
+
+If you use IDEA, make sure you have File: Settings: Plugins: Maven Integration turned on.

@@ -1,9 +1,17 @@
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.organicdesign.fp.ephemeral.View;
+
+import static org.junit.Assert.assertArrayEquals;
 
 @RunWith(JUnit4.class)
 public class EasyTest {
+    // This test should pass as-is to prove that everything is installed correctly
+    @Test public void helloWorld() {
+        assertArrayEquals(new String[] { "Hello World" },
+                View.ofArray("Hello World").toArray());
+    }
     // Construct an array by passing individual arguments to View
     @Test public void fromAndToArray() {
 //        assertArrayEquals(new String[] { "a", "b", "c" },

@@ -60,4 +60,18 @@ public class EasyTest {
 //                View.ofArray(1, 2, 3, 4).map(???).toArray());
     }
 
+    // What higher-order function is used to accept numbers that match a certain test?
+    @Test public void filterEven() {
+//        assertArrayEquals(new Integer[]{2, 4, 6, 8},
+//                View.ofArray(1,2,3,4,5,6,7,8,9)
+//                        .???(i -> i % 2 == 0).toArray());
+    }
+
+    // Chain together two higher order functions
+    @Test public void takeAndDropChain() {
+//        assertArrayEquals(new String[] { "c" },
+//                          View.ofArray("a", "b", "c", "d", "e", "f")
+//                                  .drop(???).take(???).toArray());
+    }
+
 }

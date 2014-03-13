@@ -4,6 +4,7 @@ import org.junit.runners.JUnit4;
 import org.organicdesign.fp.ephemeral.View;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(JUnit4.class)
 public class EasyTest {
@@ -11,6 +12,7 @@ public class EasyTest {
     @Test public void helloWorld() {
         assertArrayEquals(new String[] { "Hello World" },
                 View.ofArray("Hello World").toArray());
+        assertEquals("Hello World", "Hello World");
     }
     // Construct an array by passing individual arguments to View
     @Test public void fromAndToArray() {
@@ -60,11 +62,18 @@ public class EasyTest {
 //                View.ofArray(1, 2, 3, 4).map(???).toArray());
     }
 
-    // What higher-order function is used to accept numbers that match a certain test?
+    // Write a function to accept numbers that match a certain test
     @Test public void filterEven() {
 //        assertArrayEquals(new Integer[]{2, 4, 6, 8},
 //                View.ofArray(1,2,3,4,5,6,7,8,9)
-//                        .???(i -> i % 2 == 0).toArray());
+//                        .filter(i -> ???).toArray());
+    }
+
+    // Concatenate some strings - try using the new :: method pointer syntax
+    @Test public void concat() {
+//        StringBuilder sB = new StringBuilder();
+//        View.ofArray("Little ", "strokes ", "fell ", "great ", "oaks.").forEach(???);
+//        assertEquals("Little strokes fell great oaks.", sB.toString());
     }
 
     // Chain together two higher order functions

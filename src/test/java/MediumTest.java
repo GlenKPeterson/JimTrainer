@@ -39,16 +39,44 @@ public class MediumTest {
 //                             .foldLeft(???, (accum, item) -> accum * item));
     }
 
-
-    // You can use foldLeft to do the same work as map()
+    // You can use foldLeft to do the same work as map() (but use map() in practice)
     @Test
-    public void foldLeftMap() {
+    public void foldLeftMapLike() {
 //        assertArrayEquals(new Integer[] { 2, 3, 4, 5 },
 //                          View.ofArray(1, 2, 3, 4)
 //                                  .foldLeft(new ArrayList<>(), (ls, i) -> {
 //                                      ???;
 //                                      return ls;
 //                                  }).toArray());
+    }
+
+    // foldLeft can do the work of flatMap() too (but use flatMap() in practice)
+    @Test
+    public void foldLeftFlatMapLike() {
+//        assertArrayEquals(new Integer[] { 1,2,3, 10,20,30, 100,200,300 },
+//                          View.ofArray(1, 10, 100)
+//                                  .foldLeft(new ArrayList<>(), (ls, i) -> {
+//                                      ???;
+//                                      ???;
+//                                      ???;
+//                                      return ls;
+//                                  }).toArray());
+    }
+
+    // foldLeft can find a maximum number
+    @Test
+    public void findMax() {
+//        assertEquals((Integer) 73,
+//                View.ofArray(-201, 53, 73, 26, -59, 72)
+//                        .foldLeft(???, (max, i) -> (i > max) ? i : max));
+    }
+
+    // or a minimum
+    @Test
+    public void findMin() {
+//        assertEquals(Integer.valueOf(-201),
+//                View.ofArray(-201, 53, 73, 26, -59, 72)
+//                        .foldLeft(Integer.MAX_VALUE, ???));
     }
 
 }

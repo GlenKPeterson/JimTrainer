@@ -15,7 +15,21 @@ public class MediumTest {
         assertEquals(1, 1);
     }
 
-    // flatMap returns several items for each input item
+    // Here we use map() to return a list of results for each input item.
+    @Test
+    public void twoDimenMap() {
+//        List<List<Integer>> result = new ArrayList<>();
+//        result.add(Arrays.asList(1, 2, 3));
+//        result.add(Arrays.asList(10, 20, 30));
+//        result.add(Arrays.asList(100, 200, 300));
+//        assertEquals(result,
+//                     View.ofArray(1, 10, 100)
+//                             .map(i -> Arrays.asList(i, i * 2, ???)).toJavaArrayList());
+    }
+
+    // flatMap returns several items for each input item (as opposed to a sub-list
+    // of items like the above example).  You could also think of it as "flattening"
+    // any sub-lists into a single one-dimensional list.
     @Test
     public void flatMap() {
 //        assertArrayEquals(new Integer[] { 1,2,3, 10,20,30, 100,200,300 },

@@ -4,17 +4,17 @@
 
   <groupId>org.organicdesign</groupId>
   <artifactId>LearnFpJava</artifactId>
-  <version>0.1-SNAPSHOT</version>
+  <version>0.2-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>Learn Functional Programming in Java (8)</name>
+  <name>Learn Functional Programming in Java With UncleJim</name>
   <url>https://github.com/GlenKPeterson/LearnFpJava</url>
 
   <dependencies>
       <dependency>
           <groupId>org.organicdesign.fp</groupId>
-        <artifactId>fp4java7</artifactId>
-        <version>0.5-SNAPSHOT</version>
+        <artifactId>UncleJim</artifactId>
+        <version>0.9.4-SNAPSHOT</version>
       </dependency>
     <dependency>
       <groupId>junit</groupId>

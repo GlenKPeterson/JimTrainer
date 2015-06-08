@@ -14,7 +14,7 @@
       <dependency>
           <groupId>org.organicdesign.fp</groupId>
         <artifactId>UncleJim</artifactId>
-        <version>0.9.4-SNAPSHOT</version>
+        <version>0.9.6-SNAPSHOT</version>
       </dependency>
     <dependency>
       <groupId>junit</groupId>

@@ -21,6 +21,7 @@ import org.organicdesign.fp.collections.UnMap.UnEntry;
 import org.organicdesign.fp.tuple.Tuple2;
 
 import java.awt.*;
+import java.util.Comparator;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -90,24 +91,27 @@ public class EasyCollectionsTest {
 
     public static void println(Object s) { System.out.println(String.valueOf(s)); }
 
+    public static Comparator<Color> COLOR_COMP =
+            (a, b) -> (a.getRed() + a.getGreen() + a.getBlue()) - (b.getRed() + b.getGreen() + b.getBlue());
+
     @Test public void colorSquare() {
         ImList<Color> imgData = PersistentVector.empty();
         for (int i = 0; i < 256; i++) {
             for (int j = 0; j < 256; j++) {
-                imgData = imgData.append(new Color(i, j, 255 - i));
+                imgData = imgData.append(new Color(i, j, 255));
             }
         }
         println("imgData: " + imgData);
 
         ImMapOrdered<Color,Integer> counts = imgData
-                .foldLeft(PersistentTreeMap.ofComp((a, b) -> a.hashCode() - b.hashCode()),
-                          (ImMapOrdered<Color,Integer> accum, Color c) -> accum.assoc(c, accum.getOrElse(c, 1)));
+                .foldLeft(PersistentTreeMap.ofComp(COLOR_COMP),
+                          (accum, c) -> accum.assoc(c, accum.getOrElse(c, 0) + 1));
 
         println("counts: " + counts);
 
         UnEntry<Color,Integer> mostPopularColor = counts
-                .foldLeft(Tuple2.of((Color) null, 0),
-                          (UnEntry<Color,Integer> max, UnEntry<Color,Integer> entry) ->
+                .foldLeft((UnEntry<Color,Integer>) Tuple2.of((Color) null, 0),
+                          (max, entry) ->
                                   (entry.getValue() > max.getValue()) ? entry : max);
 
         println("mostPopularColor: " + mostPopularColor);

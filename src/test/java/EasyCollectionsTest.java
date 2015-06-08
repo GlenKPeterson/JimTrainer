@@ -117,4 +117,29 @@ public class EasyCollectionsTest {
         println("mostPopularColor: " + mostPopularColor);
         println("number of unique colors: " + counts.size());
     }
+
+//    // TODO: Shows bug in PersistentHashMap (see counts.toString())
+//    @Test public void colorSquare2() {
+//        ImList<Color> imgData = PersistentVector.empty();
+//        for (int i = 0; i < 256; i++) {
+//            for (int j = 0; j < 256; j++) {
+//                imgData = imgData.append(new Color(i, j, 255));
+//            }
+//        }
+//        println("imgData: " + imgData);
+//
+//        ImMap<Color,Integer> counts = imgData
+//                .foldLeft(PersistentHashMap.empty(),
+//                          (accum, c) -> accum.assoc(c, accum.getOrElse(c, 0) + 1));
+//
+//        println("counts: " + counts);
+//
+//        UnEntry<Color,Integer> mostPopularColor = counts.seq()
+//                .foldLeft((UnEntry<Color,Integer>) Tuple2.of((Color) null, 0),
+//                          (max, entry) ->
+//                                  (entry.getValue() > max.getValue()) ? entry : max);
+//
+//        println("mostPopularColor: " + mostPopularColor);
+//        println("number of unique colors: " + counts.size());
+//    }
 }

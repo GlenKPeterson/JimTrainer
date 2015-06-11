@@ -18,6 +18,7 @@ import org.organicdesign.fp.collections.ImMap;
 import org.organicdesign.fp.collections.PersistentHashMap;
 import org.organicdesign.fp.collections.PersistentVector;
 import org.organicdesign.fp.collections.UnMap.UnEntry;
+import org.organicdesign.fp.permanent.Sequence;
 import org.organicdesign.fp.tuple.Tuple2;
 
 import java.awt.Color;
@@ -27,8 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class EasyCollectionsTest {
 
@@ -63,35 +63,69 @@ public class EasyCollectionsTest {
 //                                  .toTypedArray());
     }
 
+    public enum ColorVal {
+        RED('R'),
+        ORANGE('O'),
+        YELLOW('Y'),
+        GREEN('G'),
+        BLUE('B'),
+        INDIGO('I'),
+        VIOLET('V'),
+        PINK('P');
+        private final Character ch;
 
-//    public static enum ColorVal {
-//        RED('R'),
-//        ORANGE('O'),
-//        YELLOW('Y'),
-//        GREEN('G'),
-//        BLUE('B'),
-//        INDIGO('I'),
-//        VIOLET('V'),
-//        PINK('P');
-//        private final Character ch;
-//        ColorVal(Character c) { ch = c; }
-//        public Character ch() { return ch; }
+        ColorVal(Character c) { ch = c; }
+
+        public Character ch() { return ch; }
+
+        public static final ImMap<Character,ColorVal> charToColorMap =
+                Sequence.of((ColorVal[]) values())
+                .toImMap((ColorVal v) -> Tuple2.of(v.ch(), v));
+
+        public static ColorVal fromChar(Character c) {
+            return charToColorMap.get(c);
+        }
+
+//        public static final Map<Character,ColorVal> charToColorMap2;
+//        static {
+//            Map<Character,ColorVal> tempMap = new HashMap<>();
+//            for (ColorVal v : values()) {
+//                tempMap.put(v.ch(), v);
+//            }
+//            charToColorMap2 = Collections.unmodifiableMap(tempMap);
+//        }
 //
-//        public static Comparator<ColorVal> COMPARATOR = (ColorVal a, ColorVal b) -> a.ordinal() - b.ordinal();
-//
-//        static ImList<ColorVal> valsAsList = PersistentVector.ofIter(Arrays.asList(values()));
-//
-//        private static ImMapOrdered<Character,ColorVal> charToColorMap =
-//                valsAsList.toImMap(new Function1<ColorVal,Map.Entry<Character,ColorVal>>() {
-//                    @Override
-//                    public Map.Entry<Character,ColorVal> applyEx(ColorVal colorVal) throws Exception {
-//                        Map.Entry<Character,ColorVal> e = Tuple2.of(colorVal.ch(), colorVal);
-//                        return e;
-//                    }
-//                });
-//
-//        public static ColorVal fromChar(Character c) { return charToColorMap.get(c); }
-//    }
+//        public static final Map<Character,ColorVal> charToColorMap3 = Collections.unmodifiableMap(
+//                Arrays.stream(values()).reduce(
+//                        new HashMap<>(),
+//                        (HashMap<Character,ColorVal> accum, ColorVal v) -> {
+//                            accum.put(v.ch(), v);
+//                            return accum;
+//                        },
+//                        (HashMap<Character,ColorVal> accum1, HashMap<Character,ColorVal> accum2) -> {
+//                            accum1.putAll(accum2);
+//                            return accum1;
+//                        }));
+    }
+
+    @Test public void enumTest() {
+        assertEquals(ColorVal.RED, ColorVal.fromChar('R'));
+        assertEquals(ColorVal.ORANGE, ColorVal.fromChar('O'));
+        assertEquals(ColorVal.YELLOW, ColorVal.fromChar('Y'));
+        assertEquals(ColorVal.GREEN, ColorVal.fromChar('G'));
+        assertEquals(ColorVal.BLUE, ColorVal.fromChar('B'));
+        assertEquals(ColorVal.INDIGO, ColorVal.fromChar('I'));
+        assertEquals(ColorVal.VIOLET, ColorVal.fromChar('V'));
+        assertEquals(ColorVal.PINK, ColorVal.fromChar('P'));
+        assertNull(ColorVal.fromChar('z'));
+
+//        println("ColorVal.charToColorMap: " + ColorVal.charToColorMap);
+
+        ImMap<Character,ColorVal> less = ColorVal.charToColorMap.without('O').without('Y');
+        assertEquals(ColorVal.charToColorMap.size() - 2, less.size());
+
+//        println("less: " + less);
+    }
 
     public static void println(Object s) { System.out.println(String.valueOf(s)); }
 

@@ -15,20 +15,21 @@
 import org.junit.Test;
 import org.organicdesign.fp.collections.ImList;
 import org.organicdesign.fp.collections.ImMap;
-import org.organicdesign.fp.collections.PersistentHashMap;
-import org.organicdesign.fp.collections.PersistentVector;
-import org.organicdesign.fp.collections.UnMap.UnEntry;
-import org.organicdesign.fp.permanent.Sequence;
+import org.organicdesign.fp.collections.RangeOfInt;
+import org.organicdesign.fp.collections.UnmodMap.UnEntry;
 import org.organicdesign.fp.tuple.Tuple2;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
+import static org.organicdesign.fp.StaticImports.*;
 
 public class EasyCollectionsTest {
 
@@ -36,14 +37,14 @@ public class EasyCollectionsTest {
     @Test public void forceImports() {
         assertArrayEquals(new Integer[] { 1,2,3, }, new Integer[] { 1,2,3, });
         assertEquals(1, 1);
+        vec(1);
     }
 
     // It's easy to create a vector and add more items to the end.
     @Test public void vector1() {
-//        PersistentVector<Integer> pv = PersistentVector.of(1, 2);
-//        pv = pv.append(???);
-//        assertArrayEquals(new Integer[] { 1, 2, 3, 4, 5 },
-//                          pv.toTypedArray());
+//        assertEquals(vec(1, 2, 3, 4, 5),
+//                     vec(1, 2).concat(vec(???))
+//                             .toImList());
     }
 
     // Create a vector adding items conditionally
@@ -54,13 +55,14 @@ public class EasyCollectionsTest {
 //        boolean includeThird = ???;
 //        boolean includeFourth = ???;
 //        boolean includeFifth = true;
-//        assertArrayEquals(new Integer[] { 1, 3, 5 },
-//                          PersistentVector.ofSkipNull(includeFirst ? 1 : null,
-//                                                      includeSecond ? 2 : null,
-//                                                      includeThird ? 3 : null,
-//                                                      includeFourth ? 4 : null,
-//                                                      includeFifth ? 5 : null)
-//                                  .toTypedArray());
+//        assertEquals(vec(1, 3, 5),
+//                     vec(includeFirst ? 1 : null,
+//                         includeSecond ? 2 : null,
+//                         includeThird ? 3 : null,
+//                         includeFourth ? 4 : null,
+//                         includeFifth ? 5 : null)
+//                             .filter(i -> i != null)
+//                             .toImList());
     }
 
     public enum ColorVal {
@@ -73,39 +75,41 @@ public class EasyCollectionsTest {
         VIOLET('V'),
         PINK('P');
         private final Character ch;
-
         ColorVal(Character c) { ch = c; }
-
         public Character ch() { return ch; }
 
+        // UncleJim's way:
         public static final ImMap<Character,ColorVal> charToColorMap =
-                Sequence.of((ColorVal[]) values())
-                .toImMap((ColorVal v) -> Tuple2.of(v.ch(), v));
+                vec(values())
+                .toImMap(v -> tup(v.ch(), v));
 
-        public static ColorVal fromChar(Character c) {
-            return charToColorMap.get(c);
+        // Same thing in "traditional" Java:
+        public static final Map<Character,ColorVal> charToColorMap2;
+        static {
+            Map<Character,ColorVal> tempMap = new HashMap<>();
+            for (ColorVal v : values()) {
+                tempMap.put(v.ch(), v);
+            }
+            charToColorMap2 = Collections.unmodifiableMap(tempMap);
         }
 
-//        public static final Map<Character,ColorVal> charToColorMap2;
-//        static {
-//            Map<Character,ColorVal> tempMap = new HashMap<>();
-//            for (ColorVal v : values()) {
-//                tempMap.put(v.ch(), v);
-//            }
-//            charToColorMap2 = Collections.unmodifiableMap(tempMap);
-//        }
-//
-//        public static final Map<Character,ColorVal> charToColorMap3 = Collections.unmodifiableMap(
-//                Arrays.stream(values()).reduce(
-//                        new HashMap<>(),
-//                        (HashMap<Character,ColorVal> accum, ColorVal v) -> {
-//                            accum.put(v.ch(), v);
-//                            return accum;
-//                        },
-//                        (HashMap<Character,ColorVal> accum1, HashMap<Character,ColorVal> accum2) -> {
-//                            accum1.putAll(accum2);
-//                            return accum1;
-//                        }));
+        // Same thing with Java 8's streams.
+        public static final Map<Character,ColorVal> charToColorMap3 = Collections.unmodifiableMap(
+                Arrays.stream(values()).reduce(
+                        new HashMap<>(),
+                        (HashMap<Character,ColorVal> accum, ColorVal v) -> {
+                            accum.put(v.ch(), v);
+                            return accum;
+                        },
+                        (HashMap<Character,ColorVal> accum1, HashMap<Character,ColorVal> accum2) -> {
+                            accum1.putAll(accum2);
+                            return accum1;
+                        }));
+
+        // If you were using a mutable map, you'd want to protect it with a method.
+        // It's still a good idea to do that on public classes to defend against having to change
+        // your public interface over time.
+        public static ColorVal fromChar(Character c) { return charToColorMap.get(c); }
     }
 
     @Test public void enumTest() {
@@ -134,29 +138,29 @@ public class EasyCollectionsTest {
 
 //    public static <T> T ex(T t) throws IOException { return t; }
 
+    // UncleJim's way
     @Test public void colorSquare() {
-        ImList<Color> imgData = PersistentVector.empty();
-        for (int i = 0; i < 256; i++) {
-            for (int j = 0; j < 256; j++) {
-                imgData = imgData.append(new Color(i, (i + j) / 2, 255));
-            }
-        }
+        ImList<Color> imgData = RangeOfInt.of(0, 256)
+                .flatMap(i -> RangeOfInt.of(0, 256).map(j -> new Color(i, (i + j) / 2, 255)))
+                .toImList();
+
         println("imgData: " + imgData);
 
         ImMap<Color,Integer> counts = imgData
-                .foldLeft(PersistentHashMap.empty(),
-                          (accum, c) -> accum.assoc(c, accum.getOrElse(c, 0) + 1));
+                .foldLeft(map(),
+                          (accum, color) -> accum.assoc(color, accum.getOrElse(color, 0) + 1));
 
         println("counts: " + counts);
 
-        UnEntry<Color,Integer> mostPopularColor = counts.seq()
-                .foldLeft((UnEntry<Color,Integer>) Tuple2.of((Color) null, 0),
-                          (max, entry) -> (entry.getValue() > max.getValue()) ? entry : max);
+        UnEntry<Color,Integer> mostPopularColor =
+                counts.foldLeft((UnEntry<Color,Integer>) tup((Color) null, 0),
+                                (max, entry) -> (entry.getValue() > max.getValue()) ? entry : max);
 
         println("mostPopularColor: " + mostPopularColor);
         println("number of unique colors: " + counts.size());
     }
 
+    // Same thing in "Traditional" Java:
     @Test public void colorSquare2() {
         List<Color> imgData = new ArrayList<>();
         for (int i = 0; i < 256; i++) {
@@ -184,6 +188,7 @@ public class EasyCollectionsTest {
         println("number of unique colors: " + counts.size());
     }
 
+    // Same thing with Java 8's Streams
     @Test public void colorSquare3() {
         List<Color> imgData = new ArrayList<>();
         for (int i = 0; i < 256; i++) {

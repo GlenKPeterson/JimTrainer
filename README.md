@@ -18,4 +18,4 @@ A set of exercises for learning functional programming with UncleJim in Java.
 
 
 #Picture Credit
-"We Can Do It!" by J. Howard Miller, artist employed by Westinghouse, poster used by the War Production Co-ordinating Committee - From scan of copy belonging to the National Museum of American History, Smithsonian Institution, retrieved from the website of the Virginia Historical Society.. Licensed under Public Domain via Commons - https://commons.wikimedia.org/wiki/File:We_Can_Do_It!.jpg#/media/File:We_Can_Do_It!.jpg
+"We Can Do It!" by J. Howard Miller, artist employed by Westinghouse, poster used by the War Production Co-ordinating Committee - From scan of copy belonging to the National Museum of American History, Smithsonian Institution, retrieved from the website of the Virginia Historical Society.. Licensed under Public Domain via Commons - https://commons.wikimedia.org/wiki/File:We_Can_Do_It!.jpg#/media/File:We_Can_Do_It!.jpg  Modified/repurposed by Glen Peterson.

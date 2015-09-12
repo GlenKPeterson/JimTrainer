@@ -3,12 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.organicdesign</groupId>
-  <artifactId>LearnFpJava</artifactId>
+  <artifactId>JimTrainer</artifactId>
   <version>0.2-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>Learn Functional Programming in Java With UncleJim</name>
-  <url>https://github.com/GlenKPeterson/LearnFpJava</url>
+  <url>https://github.com/GlenKPeterson/JimTrainer</url>
 
   <dependencies>
       <dependency>

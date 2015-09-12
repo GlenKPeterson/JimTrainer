@@ -1,6 +1,6 @@
 ![Learn UncleJim with JimTrainer](LearnUncleJim.jpg)
 
-A set of exercises for learning functional programming with UncleJim in Java.
+A set of exercises for learning functional programming with [UncleJim](https://github.com/GlenKPeterson/UncleJim) in Java.
 
 #Requirements:
  - Java 8+: https://jdk8.java.net/download.html

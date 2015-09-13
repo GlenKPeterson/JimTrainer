@@ -3,7 +3,7 @@
 A set of exercises for learning functional programming with [UncleJim](https://github.com/GlenKPeterson/UncleJim) in Java.
 
 #Requirements:
- - [Java 8+](https://jdk8.java.net/download.html)
+ - [Java 8 SE Development Kit (JDK8)](http://www.oracle.com/technetwork/java/javase/).  It doesn't have to be the Oracle version.  It can be OpenJDK8+ or simmilar.
 
  - [Maven 3.2+](http://maven.apache.org/download.cgi)
 

@@ -1,6 +1,6 @@
 ![Learn UncleJim with JimTrainer](LearnUncleJim.jpg)
 
-A set of exercises for learning functional programming with [UncleJim](https://github.com/GlenKPeterson/UncleJim) in Java.
+Self-guided exercises for learning functional programming with [UncleJim](https://github.com/GlenKPeterson/UncleJim) in Java.
 
 #Requirements:
  - [Java 8 SE Development Kit (JDK8)](http://www.oracle.com/technetwork/java/javase/).  It doesn't have to be the Oracle version.  It can be OpenJDK8+ or any JDK 8 or higher.  Anything that supports JUnit should support UncleJim.

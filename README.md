@@ -9,8 +9,6 @@ A set of exercises for learning functional programming with [UncleJim](https://g
 
  - A text editor or IDE
 
- - Download [UncleJim](https://github.com/GlenKPeterson/UncleJim) and run `mvn clean install` on it.  Hopefully it will be in Sonatype / Maven Central soon to eliminate this step.
-
 #Usage 
  - Run `mvn clean test` on this project (JimTrainer)
  

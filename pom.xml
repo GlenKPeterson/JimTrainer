@@ -12,9 +12,9 @@
 
   <dependencies>
       <dependency>
-          <groupId>org.organicdesign.fp</groupId>
+          <groupId>org.organicdesign</groupId>
         <artifactId>UncleJim</artifactId>
-        <version>0.10.8-SNAPSHOT</version>
+        <version>0.10.10</version>
       </dependency>
     <dependency>
       <groupId>junit</groupId>

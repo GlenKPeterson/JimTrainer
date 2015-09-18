@@ -46,7 +46,7 @@ public class EasyTest {
 //                                  .concat(vec(???)).toArray());
     }
 
-    // Concatenate a second view (prepend)
+    // Concatenate a second vector to the beginning (prepend)
     @Test public void prepend() {
 //        assertArrayEquals(new String[]{"a", "b", "c", "d", "e", "f"},
 //                          vec("d", "e", "f")
